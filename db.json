@@ -2,7 +2,7 @@
   "products": [
     {
       "id": 1,
-      "name": "Product 1",
+      "name": "Product 1 updated",
       "price": 992
     },
     {
@@ -12,7 +12,7 @@
     },
     {
       "id": 3,
-      "name": "Product 3",
+      "name": "Product 3 adsf",
       "price": 356
     },
     {

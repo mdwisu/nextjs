@@ -1,10 +1,9 @@
 export default function Products({ products }) {
   return (
     <div>
-      Products List
       <ul>
         {products.map((product) => (
-          <li key={product.id}>{product.name}</li>
+          <li key={product.id}>{product.name} - {product.price}</li>
         ))}
       </ul>
     </div>
@@ -18,5 +17,6 @@ export async function getStaticProps(context) {
     props: {
       products,
     }, // will be passed to the page component as props
+    revalidate: 1,
   };
 }
