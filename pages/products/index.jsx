@@ -1,8 +1,27 @@
-export default function Products({ products }) {
+import { useEffect, useState } from 'react';
+import useSWR from 'swr';
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
+export const getServerSideProps = async () => {
+  return {
+    props: {
+      host: process.env.HOST,
+    },
+  };
+};
+
+export default function Products({ host }) {
+  console.log(host);
+  const { data, error } = useSWR(`${host}/products`, fetcher);
+
+  if (error) return <div>Failed to load</div>;
+  if (!data) return <div>Loading...</div>;
+
   return (
     <div>
       <ul>
-        {products.map((product) => (
+        {data.map((product) => (
           <li key={product.id}>
             {product.name} - {product.price}
           </li>
@@ -10,14 +29,4 @@ export default function Products({ products }) {
       </ul>
     </div>
   );
-}
-
-export async function getServerSideProps(context) {
-  const res = await fetch('http://localhost:5000/products');
-  const products = await res.json();
-  return {
-    props: {
-      products,
-    },
-  };
 }
