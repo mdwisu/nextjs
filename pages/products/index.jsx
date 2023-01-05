@@ -1,15 +1,8 @@
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
+import Layout from '../../components/layout';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
-
-export const getServerSideProps = async () => {
-  return {
-    props: {
-      host: process.env.HOST,
-    },
-  };
-};
 
 export default function Products({ host }) {
   console.log(host);
@@ -19,7 +12,7 @@ export default function Products({ host }) {
   if (!data) return <div>Loading...</div>;
 
   return (
-    <div>
+    <Layout>
       <ul>
         {data.map((product) => (
           <li key={product.id}>
@@ -27,6 +20,14 @@ export default function Products({ host }) {
           </li>
         ))}
       </ul>
-    </div>
+    </Layout>
   );
 }
+
+export const getServerSideProps = async () => {
+  return {
+    props: {
+      host: process.env.HOST,
+    },
+  };
+};
